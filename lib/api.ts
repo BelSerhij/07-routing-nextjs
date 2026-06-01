@@ -84,8 +84,8 @@ export const fetchNotes = async ({
   return normalizeFetchNotes(response.data);
 };
 
-export const fetchNoteById = async (id: string) => {
-  const res = await api.get<Note>(`/notes/${id}`);
+export const fetchNoteById = async (id: string): Promise<Note> => {
+  const res: AxiosResponse<Note> = await api.get(`/notes/${id}`);
   return res.data;
 };
 
@@ -98,8 +98,12 @@ export const createNote = async (newTitle: string, newContent: string, newTag: N
   return response.data;
 };
 
-export const deleteNote = async (id: string): Promise<Note> => {
-  const response = await api.delete<Note>(`/notes/${id}`);
+export const deleteNote = async (
+  id: string
+): Promise<DeleteNoteResponse> => {
+  const response: AxiosResponse<DeleteNoteResponse> =
+    await api.delete(`/notes/${id}`);
+
   return response.data;
 };
 
